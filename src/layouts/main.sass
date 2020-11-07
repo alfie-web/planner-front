@@ -1,2 +1,41 @@
 @import '~reset-css'
+@import './vars'
 
+	
+* 
+	&::-webkit-scrollbar
+		width: 3px
+		height: 3px
+		border-radius: 3px
+
+	&::-webkit-scrollbar-button
+		background-color: #d0dae5
+		display: none
+	&::-webkit-scrollbar-track
+		box-sizing: border-box
+		background-color: #d0dae5
+	&::-webkit-scrollbar-track-piece
+		background-color: white
+
+	&::-webkit-scrollbar-thumb
+		height: 50px
+		background-color: #d0dae5
+		border-radius: 3px
+		transition: background-color .3s
+
+	&::-webkit-scrollbar-thumb:vertical:hover
+		background-color: $gray
+		
+	&::-webkit-scrollbar-corner
+		background-color: #d0dae5
+	&::-webkit-resizer
+		background-color: #d0dae5
+
+::selection 
+	background: $light
+	color: $black
+	
+
+body
+	font: 18px $bold
+	color: $black

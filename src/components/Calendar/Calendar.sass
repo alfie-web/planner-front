@@ -1,0 +1,53 @@
+@import '../../layouts/vars'
+
+.Calendar
+	position: relative
+	z-index: 100
+	height: 100vh
+	overflow: auto
+	background-color: white
+
+	&__view
+		width: 100%
+		height: 100%
+		text-align: left
+		border-collapse: collapse !important
+		border: none
+
+		th, td
+			padding: 30px
+			box-sizing: border-box
+			border: 1px solid rgba(218, 225, 235, .2)
+
+		th, .taskCount
+			font: 18px/25px $bold
+			color: $gray
+
+		td
+			position: relative
+			height: 130px
+			cursor: pointer
+
+			&:hover
+				border: 1px solid $light
+				outline: 1px solid $light
+				z-index: 10
+
+			.dayNumber
+				font: 36px/30px $bold
+
+			.taskCount
+				position: absolute
+				left: 30px
+				bottom: 25px
+
+			&.today
+				color: $accent
+
+			&.selected
+				border: 1px solid $accent
+				outline: 1px solid $accent
+				z-index: 10
+
+				.taskCount, .dayNumber
+					color: $accent

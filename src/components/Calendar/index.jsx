@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect, memo } from 'react';
+import { useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 
 import './Calendar.sass';
 
@@ -10,17 +12,17 @@ import './Calendar.sass';
 	// Отдельно от календаря создать селекты выбора месяца и года (так как будет глобальный стейт)
 
 
-// const today = new Date();
-
-// const Calendar = ({ day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() }) => {
-const Calendar = ({ day, month, year }) => {
+const Calendar = ({ day, month, year, onDaySelect }) => {
 	const DAYS_IN_MONTH = useRef([31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]);
 	const DAYS_IN_WEEK = useRef(7);
-	const MONTH_TITLES = useRef(['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']);
+	// const MONTH_TITLES = useRef(['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']);
 	const DAY_TITLES = useRef(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']);
 
-	// const [selectedDate, setSelectedDate] = useState({});
 	const [selectedDate, setSelectedDate] = useState();
+
+	const history = useHistory();
+
+	console.log('RENDER')
 
 	useEffect(() => {
 		setSelectedDate({
@@ -29,11 +31,13 @@ const Calendar = ({ day, month, year }) => {
 	}, [day, month, year])
 
 	const onSelectDate = (e) => {		// Паттерн - делегирование событий
-		if (!e.target.closest('td')) return;
+		const target = e.target.closest('td.day');
+		if (!target) return;
 
-		const { day, month, year } = e.target.dataset;
+		const { day, month, year } = target.dataset;
 		console.log({ day, month, year })
-		// делаем запрос на сервак, меняем глобальный стейт
+		onDaySelect(day)
+		// делаем запрос на сервак, меняем глобальный стейт (или не тут)
 	}
 
 
@@ -54,11 +58,11 @@ const Calendar = ({ day, month, year }) => {
 		return day - 1;
 	}
 
-	// const isToday = (day) => {
-	// 	return selectedDate.month === currentDate.month &&
-	// 		    selectedDate.year === currentDate.year &&
-	// 		    day === currentDate.day
-	// }
+	const isToday = (day, month, year) => {
+		const curDate = new Date()
+
+		return curDate.getDate() === day && curDate.getMonth() === month && curDate.getFullYear() === year
+	}
 
 	const getMonthInfo = () => {
 		const daysOfMonth = getDaysOfMonthNumber(selectedDate.year, selectedDate.month);
@@ -103,30 +107,26 @@ const Calendar = ({ day, month, year }) => {
 			month += way;
 		}
 
-		setSelectedDate({
-			day: selectedDate.day,
-			month,
-			year
-		});
+		history.push(`/${selectedDate.day}/${month + 1}/${year}`)
+
+		// В нём  теперь нет надобности, так как при смене url, useHistory перерисует компоненту с новым стейтом
+		// setSelectedDate({
+		// 	day: selectedDate.day,
+		// 	month: month,
+		// 	year: year
+		// });
 	}
 	    
-	// const notEmpty = (val) => {
-	// 	return val || val === 0
-	// }
-
 	return (
 		<div className="Calendar">
-			<button onClick={() => setPrevNextMonth(-1)}>{'<'}</button>
-			<button onClick={() => setPrevNextMonth(1)}>{'>'}</button>
+			{/* <button onClick={() => setPrevNextMonth(-1)}>{'<'}</button>
+			<button onClick={() => setPrevNextMonth(1)}>{'>'}</button> */}
 
 			{ 
-				// notEmpty(selectedDate.day) && 
-				// notEmpty(selectedDate.month) && 
-				// notEmpty(selectedDate.year) && 
 				selectedDate && 
 				<>
-					<span>{MONTH_TITLES.current[+selectedDate.month]}</span>
-					<span>{selectedDate.year}</span>
+					{/* <span>{MONTH_TITLES.current[+selectedDate.month]}</span>
+					<span>{selectedDate.year}</span> */}
 
 					<table className="Calendar__view" onClick={onSelectDate}>
 						<thead>
@@ -142,8 +142,20 @@ const Calendar = ({ day, month, year }) => {
 									<tr key={i}>
 										{
 											row.map((date, j) => date ? (
-												<td key={j} data-day={date.day} data-month={date.month + 1} data-year={date.year}>
-													{date.day}
+												<td 
+													key={j} 
+													data-day={date.day} 
+													data-month={date.month + 1} 
+													data-year={date.year}
+													className={classNames('day', {
+														'today': isToday(date.day, date.month, date.year),
+														'selected': date.day === day
+													})}
+												>
+													<span className="dayNumber">{date.day}</span>
+													{isToday(date.day, date.month, date.year) && 
+														<span className="taskCount">2</span>
+													}
 												</td>
 											)
 											: <td key={j}></td>)

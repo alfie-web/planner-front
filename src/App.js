@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
+import './layouts/fonts.sass';
 import './layouts/main.sass';
 
 import { DatesPage } from './pages';

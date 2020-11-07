@@ -1,0 +1,73 @@
+@import '../../layouts/vars'
+
+.Dates
+	.container
+		display: flex
+
+	.Calendar
+		width: calc(100% - (100% / 3))
+
+	.Tasks
+		$tasks: &
+		position: relative
+		width: calc(100% / 3)
+		overflow: auto
+		height: 100vh
+		padding: 25px 30px
+		box-sizing: border-box
+		
+
+		&:hover
+			.Tasks__bg
+				
+				// filter: blur(0px)
+				// webkit-filter: blur(0px)
+				// transform: scale(1.1)
+				&::after
+					// backdrop-filter: blur(0)
+
+		&__bg-wrap
+			position: absolute
+			top: 0
+			left: 0
+			bottom: 0
+			right: 0
+			z-index: -1
+			overflow: hidden
+
+		&__bg
+			position: absolute
+			top: 0
+			left: 0
+			bottom: 0
+			right: 0
+			z-index: -1
+			filter: blur(10px)
+			webkit-filter: blur(10px)
+			transform: scale(1.3)
+			// transition: filter .2s linear
+			// transition: transform .2s ease
+
+			&::after
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				bottom: 0
+				right: 0
+				background-color: rgba(24, 27, 32, .3)
+				// backdrop-filter: blur(10px)
+				// transition: backdrop-filter .2s
+
+		&__top
+			display: flex
+			justify-content: space-between
+			align-items: center
+
+			span
+				display: flex
+
+			.Select
+				margin-right: 30px
+				&:last-child
+					margin-right: 0
