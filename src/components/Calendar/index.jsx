@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, memo } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
 import './Calendar.sass';
@@ -20,7 +20,7 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 
 	const [selectedDate, setSelectedDate] = useState();
 
-	const history = useHistory();
+	// const history = useHistory();
 
 	console.log('RENDER')
 
@@ -93,29 +93,29 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 	}
 
 
-	const setPrevNextMonth = (way) => {
-		let month = selectedDate.month;
-		let year = selectedDate.year;
+	// const setPrevNextMonth = (way) => {
+	// 	let month = selectedDate.month;
+	// 	let year = selectedDate.year;
 
-		if (month + way < 0) {
-			month = 11;
-			year -= 1; 
-		} else if (month + way > 11) {
-			month = 0;
-			year += 1; 
-		} else {
-			month += way;
-		}
+	// 	if (month + way < 0) {
+	// 		month = 11;
+	// 		year -= 1; 
+	// 	} else if (month + way > 11) {
+	// 		month = 0;
+	// 		year += 1; 
+	// 	} else {
+	// 		month += way;
+	// 	}
 
-		history.push(`/${selectedDate.day}/${month + 1}/${year}`)
+	// 	history.push(`/${selectedDate.day}/${month + 1}/${year}`)
 
-		// В нём  теперь нет надобности, так как при смене url, useHistory перерисует компоненту с новым стейтом
-		// setSelectedDate({
-		// 	day: selectedDate.day,
-		// 	month: month,
-		// 	year: year
-		// });
-	}
+	// 	// В нём  теперь нет надобности, так как при смене url, useHistory перерисует компоненту с новым стейтом
+	// 	// setSelectedDate({
+	// 	// 	day: selectedDate.day,
+	// 	// 	month: month,
+	// 	// 	year: year
+	// 	// });
+	// }
 	    
 	return (
 		<div className="Calendar">

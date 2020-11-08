@@ -21,6 +21,10 @@
 		align-items: center
 		font: 36px $bold
 		color: white
+		transition: color .2s
+
+		&:hover
+			color: $accent
 
 		&-icon
 			display: flex
@@ -39,6 +43,8 @@
 				transition: fill .2s, transform .2s
 
 		&--active
+			color: $accent
+
 			#{$current}-icon
 				border: 2px solid $accent
 				svg

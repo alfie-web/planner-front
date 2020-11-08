@@ -7,6 +7,21 @@
 	overflow: auto
 	background-color: white
 
+	&__btn
+		border: none
+		outline: none
+		background-color: transparent
+		cursor: pointer
+
+		&:hover
+			svg
+				fill: $accent
+
+		svg
+			// stroke: white
+			fill: white
+			transition: fill .2s
+
 	&__view
 		width: 100%
 		height: 100%

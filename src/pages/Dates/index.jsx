@@ -11,7 +11,7 @@ const today = new Date();
 
 const Dates = () => {
 	const history = useHistory();
-	const { day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() } = useParams();
+	let { day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() } = useParams();
 
 	console.log(day, month, year)
 	console.log('DATES_RERENDER')
@@ -30,6 +30,23 @@ const Dates = () => {
 		console.log(val)
 		history.push(`/${day}/${month}/${val}`)
 	}, [day, month, history])
+
+	const setPrevNextMonth = (way) => {
+		year = +year
+		month = +month
+
+		if (month + way < 1) {
+			month = 12;
+			year -= 1; 
+		} else if (month + way > 12) {
+			month = 1;
+			year += 1; 
+		} else {
+			month += way
+		}
+
+		history.push(`/${day}/${month}/${year}`)
+	}
 
 	return (
 		<main className="Page Dates">
@@ -58,7 +75,7 @@ const Dates = () => {
 										{title: 'Ноябрь', value: '11'},
 										{title: 'Декабрь', value: '12'},
 									]}
-									defaultValue={+month}
+									defaultValue={month}
 									onSelect={onMonthSelect}
 								/>
 							}
@@ -67,6 +84,19 @@ const Dates = () => {
 								year={+year}
 								onSelect={onYearSelect}
 							/>
+						</span>
+
+						<span>
+							<button className="Calendar__btn" onClick={() => setPrevNextMonth(-1)}>
+								<svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M11 3L3 11L11 19" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="square" />
+								</svg>
+							</button>
+							<button className="Calendar__btn" onClick={() => setPrevNextMonth(1)}>
+								<svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 3L11 11L3 19" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="square" />
+								</svg>
+							</button>
 						</span>
 					</div>
 				</aside>
