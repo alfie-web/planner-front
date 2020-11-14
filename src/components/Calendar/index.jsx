@@ -4,15 +4,8 @@ import classNames from 'classnames';
 
 import './Calendar.sass';
 
-// TODO: 
-	// Отображать текущую дату
-	// Выделять выбранную дату
-	// Стилизовать
 
-	// Отдельно от календаря создать селекты выбора месяца и года (так как будет глобальный стейт)
-
-
-const Calendar = ({ day, month, year, onDaySelect }) => {
+const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 	const DAYS_IN_MONTH = useRef([31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]);
 	const DAYS_IN_WEEK = useRef(7);
 	// const MONTH_TITLES = useRef(['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']);
@@ -22,7 +15,7 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 
 	// const history = useHistory();
 
-	console.log('RENDER')
+	console.log('RENDER', timeMarksCount)
 
 	useEffect(() => {
 		setSelectedDate({
@@ -92,7 +85,6 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 		return rows;
 	}
 
-
 	// const setPrevNextMonth = (way) => {
 	// 	let month = selectedDate.month;
 	// 	let year = selectedDate.year;
@@ -116,6 +108,15 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 	// 	// 	year: year
 	// 	// });
 	// }
+
+
+	const showTimemarksCount = (day) => {
+		const findedIndex = timeMarksCount.findIndex(tm => tm.day === day)
+
+		return findedIndex >= 0
+			? <span className="taskCount">{timeMarksCount[findedIndex].count}</span>
+			: null
+	}
 	    
 	return (
 		<div className="Calendar">
@@ -153,9 +154,8 @@ const Calendar = ({ day, month, year, onDaySelect }) => {
 													})}
 												>
 													<span className="dayNumber">{date.day}</span>
-													{isToday(date.day, date.month, date.year) && 
-														<span className="taskCount">2</span>
-													}
+
+													{ timeMarksCount && showTimemarksCount(date.day) }
 												</td>
 											)
 											: <td key={j}></td>)

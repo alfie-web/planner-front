@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+
+import client from './graphql/apolloClient';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<App />
+			<ApolloProvider client={client}>
+				<App />
+			</ApolloProvider>
 		</Router>
 	</React.StrictMode>
 	,

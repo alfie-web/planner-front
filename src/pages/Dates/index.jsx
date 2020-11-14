@@ -1,17 +1,30 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+// import { useQuery } from '@apollo/client';
 
-import { Calendar, YearSelect, Select } from '../../components';
+// import { getMonthTimeMarks } from '../../graphql/timeMarksQuery';
+import { YearSelect, Select } from '../../components';
+
+import { TimeMarks, DatesCalendar, DatesBg } from './components';
 
 import './Dates.sass';
 
-import bgImg from '../../assets/images/bg.jpeg';
+// import bgImg from '../../assets/images/bg.jpeg';
+// const bgImg = 'https://source.unsplash.com/1600x900/?nature,water';	// Можно вместо water вставить текущий месяц
+// const bgImg = 'https://source.unsplash.com/1600x900/?nature';
+
+
 
 const today = new Date();
 
 const Dates = () => {
 	const history = useHistory();
 	let { day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() } = useParams();
+
+	// const { loading, error, data } = useQuery(
+	// 	getMonthTimeMarks(), 
+	// 	{ variables: { month: +month, year: +year } }
+	// )
 
 	console.log(day, month, year)
 	console.log('DATES_RERENDER')
@@ -48,14 +61,20 @@ const Dates = () => {
 		history.push(`/${day}/${month}/${year}`)
 	}
 
+	// if (loading) return <p>Loading...</p>;
+	// if (error) return <p>Error :(</p>;
+
 	return (
 		<main className="Page Dates">
 			<div className="container">
 
 				<aside className="Tasks">
-					<div className="Tasks__bg-wrap">
-						<div className="Tasks__bg" style={{ background: `url(${bgImg}) center no-repeat`, backgroundSize: 'cover' }}></div>
-					</div>
+					{/* <div className="Tasks__bg-wrap">
+						<div samesite="None" className="Tasks__bg" style={{ background: `url(https://source.unsplash.com/1600x900/?nature,${ENG_MONTHS_TITLES[+month]}) center no-repeat`, backgroundSize: 'cover' }}></div>
+					</div> */}
+					<DatesBg 
+						month={+month - 1}
+					/>
 
 					<div className="Tasks__top">
 						<span>
@@ -99,18 +118,32 @@ const Dates = () => {
 							</button>
 						</span>
 					</div>
+
+					<TimeMarks 
+						day={day}
+						month={month}
+						year={year}
+					/>
 				</aside>
 
-				<Calendar 
+				<DatesCalendar 
 					day={+day}
 					month={+month}
 					year={+year}
 					onDaySelect={onDaySelect}
 				/>
 
+				{/* <Calendar 
+					day={+day}
+					month={+month}
+					year={+year}
+					onDaySelect={onDaySelect}
+					timeMarksCount={data.monthTimeMarks}
+				/> */}
+
 			</div>
 		</main>
 	)
 }
 
-export default Dates;
+export default memo(Dates);
