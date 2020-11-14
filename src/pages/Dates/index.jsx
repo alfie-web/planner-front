@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 // import { useQuery } from '@apollo/client';
 
 // import { getMonthTimeMarks } from '../../graphql/timeMarksQuery';
-import { YearSelect, Select } from '../../components';
+import { YearSelect, Select, Button } from '../../components';
 
 import { TimeMarks, DatesCalendar, DatesBg } from './components';
 
@@ -108,12 +108,12 @@ const Dates = () => {
 						<span>
 							<button className="Calendar__btn" onClick={() => setPrevNextMonth(-1)}>
 								<svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M11 3L3 11L11 19" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="square" />
+									<path d="M11 3L3 11L11 19" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" />
 								</svg>
 							</button>
 							<button className="Calendar__btn" onClick={() => setPrevNextMonth(1)}>
 								<svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M3 3L11 11L3 19" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="square" />
+									<path d="M3 3L11 11L3 19" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" />
 								</svg>
 							</button>
 						</span>
@@ -124,6 +124,13 @@ const Dates = () => {
 						month={month}
 						year={year}
 					/>
+
+					<div className="Tasks__bottom">
+						<Button 
+							// variant="blue"
+							text="Добавить временную метку"
+						/>
+					</div>
 				</aside>
 
 				<DatesCalendar 

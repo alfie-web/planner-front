@@ -15,8 +15,10 @@ export const getDayTimeMarks = () => {
 	return gql`
 		query timeMarks($day: Int!, $month: Int!, $year: Int) {
 			timeMarks(day: $day, month: $month, year: $year) {
+				_id
 				title
 				time
+				tasksCount
 			}
 		}
 	`;

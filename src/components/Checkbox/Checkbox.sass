@@ -1,0 +1,39 @@
+@import '../../layouts/vars'
+
+.Checkbox
+	position: relative
+
+	&__checkbox
+		&::after
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			height: 30px
+			width: 30px
+			border: 1px solid rgba(255, 255, 255, .3)
+			pointer-events: none
+			border-radius: 50%
+			transition: border-color .2s
+
+		svg
+			position: absolute
+			left: 8px
+			top: 2px
+			opacity: 0
+			pointer-events: none
+
+		&:hover::after
+			border-color: white
+
+		&--checked
+			svg
+				opacity: 1
+			
+
+	input
+		opacity: 0
+		cursor: pointer
+		height: 30px
+		width: 30px
+		margin: 0

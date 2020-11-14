@@ -1,6 +1,7 @@
 import React from 'react';
 
-const ENG_MONTHS_TITLES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+import fallbackBg from '../../../../assets/images/bg.jpeg';
+const ENG_MONTHS_TITLES = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 
 const DatesBg = ({ month }) => {
 	return (
@@ -12,6 +13,7 @@ const DatesBg = ({ month }) => {
 				className="Tasks__bg"
 				src={`https://source.unsplash.com/1600x900/?nature,${ENG_MONTHS_TITLES[month]}`} 
 				alt="Month img"
+				onError={(e) => e.target.src = fallbackBg}
 			/>
 		</div>
 	)

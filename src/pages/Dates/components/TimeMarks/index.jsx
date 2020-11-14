@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import { getDayTimeMarks } from '../../../../graphql/timeMarksQuery';
+import { TimeMark } from '../';
 
 import './TimeMarks.sass';
 
@@ -16,10 +17,13 @@ const TimeMarks = ({ day, month, year }) => {
 			{ data && <div className="TimeMarks__items">
 				{ data.timeMarks.length ?
 					data.timeMarks.map((timeMark, i) => (
-						<div className="TimeMarks__item" key={i}>
-							<span className="TimeMarks__item-title">{timeMark.title}</span>
-							<span className="TimeMarks__item-time">{timeMark.time}</span>
-						</div>
+						<TimeMark 
+							key={timeMark._id}
+							_id={timeMark._id}
+							title={timeMark.title}
+							tasksCount={timeMark.tasksCount}
+							time={timeMark.time}
+						/>
 					))
 					: <span className="Dates__message">Событий не запланировано</span>
 				}
