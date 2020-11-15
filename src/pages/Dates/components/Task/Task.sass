@@ -1,6 +1,7 @@
 @import '../../../../layouts/vars'
 
 .Task
+	$self: &
 	display: flex
 	align-items: flex-start
 	width: 100%
@@ -18,3 +19,7 @@
 		text-align: center
 		color: white
 		padding-bottom: 20px
+
+	&--completed
+		#{$self}__title
+			text-decoration: line-through

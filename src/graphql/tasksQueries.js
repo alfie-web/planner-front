@@ -14,3 +14,14 @@ export const getTasks = () => {
 		}
 	`;
 }
+
+export const completeTask = () => {
+	return gql`
+		query CompleteTask($taskId: ID!, $completed: Boolean!) {
+			completeTask(taskId: $taskId, completed: $completed) {
+				_id
+				completed
+			}
+		}
+	`;
+}
