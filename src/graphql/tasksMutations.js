@@ -8,3 +8,12 @@ export const completeTask =  gql`
 		}
 	}
 `;
+
+export const updateTask =  gql`
+	mutation UpdateTask($taskId: ID!, $title: String!) {
+		updateTask(taskId: $taskId, title: $title) {
+			_id
+			title
+		}
+	}
+`;

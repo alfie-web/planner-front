@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 const Input = ({ value, onBlur }) => {
 	const [val, setVal] = useState(value);
 
-	const onChange = (val) => {
-		setVal(val)
+	const onChange = (e) => {
+		setVal(e.target.value)
 	}
 
 	return (
-		<input type="text" value={val} onChange={onChange} onBlur={onBlur} />
+		<textarea className="Task__input" type="text" value={val} onChange={onChange} onBlur={() => onBlur(val)} ></textarea>
 	)
 }
 
