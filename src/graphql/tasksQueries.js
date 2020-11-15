@@ -15,13 +15,15 @@ export const getTasks = () => {
 	`;
 }
 
-export const completeTask = () => {
-	return gql`
-		query CompleteTask($taskId: ID!, $completed: Boolean!) {
-			completeTask(taskId: $taskId, completed: $completed) {
-				_id
-				completed
-			}
-		}
-	`;
-}
+// export const completeTask = () => {
+// 	return gql`
+// 		# query CompleteTask($taskId: ID!, $completed: Boolean!) {
+// 			# completeTask(taskId: $taskId, completed: $completed) {
+// 		query CompleteTask($taskId: ID!) {
+// 			completeTask(taskId: $taskId) {
+// 				_id
+// 				completed
+// 			}
+// 		}
+// 	`;
+// }
