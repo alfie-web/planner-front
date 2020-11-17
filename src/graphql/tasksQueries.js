@@ -1,19 +1,18 @@
 import { gql } from '@apollo/client';
 
-export const getTasks = () => {
-	return gql`
-		query Tasks($timemarkId: ID!) {
-			tasks(timemarkId: $timemarkId) {
+export const GET_TASKS = gql`
+	query Tasks($timemarkId: ID!) {
+		tasks(timemarkId: $timemarkId) {
+			_id
+			title
+			completed
+			timeMark {
 				_id
-				title
-				completed
-				timeMark {
-					_id
-				}
 			}
 		}
-	`;
-}
+	}
+`;
+
 
 // export const completeTask = () => {
 // 	return gql`

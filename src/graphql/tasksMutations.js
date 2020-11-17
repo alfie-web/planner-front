@@ -17,3 +17,16 @@ export const updateTask =  gql`
 		}
 	}
 `;
+
+export const addTask =  gql`
+	mutation AddNewTask($title: String!, $timeMark: ID!) {
+		addTask(title: $title, timeMark: $timeMark) {
+			_id
+			title
+			completed
+			timeMark {
+				_id
+			}
+		}
+	}
+`;
