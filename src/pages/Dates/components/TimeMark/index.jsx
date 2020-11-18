@@ -2,6 +2,7 @@ import React, { useState, memo } from 'react';
 import classNames from 'classnames';
 import { useLazyQuery, useMutation, useApolloClient, gql } from '@apollo/client';
 
+import { TIME_MARK_BY_ID } from '../../../../graphql/timeMarksQuery';
 import { GET_TASKS } from '../../../../graphql/tasksQueries';
 import { addTask } from '../../../../graphql/tasksMutations';
 import { Task, NewTaskInput } from '../';
@@ -30,6 +31,10 @@ const TimeMark = ({ _id, title, tasksCount, time }) => {
 			// options: {
 			// TODO: Заюзать ещё refetchQueries  на получения обновлённой информации об временной метки
 			// для того, чтобы увидеть обновлённое количество задач
+			refetchQueries: [{
+				query: TIME_MARK_BY_ID,
+				variables: { _id }
+			}],
 				update: (cache, { data: { addTask } }) => {
 					cache.modify({
 						fields: {

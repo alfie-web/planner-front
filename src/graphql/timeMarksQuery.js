@@ -24,6 +24,17 @@ export const getDayTimeMarks = () => {
 	`;
 }
 
+export const TIME_MARK_BY_ID = gql`
+	query timeMarkById($_id: ID) {
+		timeMarkById(_id: $_id) {
+			_id
+			title
+			tasksCount
+		}
+	}
+`;
+
+
 // Можно сделать даже так
 // export const getDates = () => {
 // 	return gql`
