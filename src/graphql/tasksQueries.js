@@ -1,8 +1,23 @@
 import { gql } from '@apollo/client';
 
+// TODO: Одинаковую логику переписать во фрагменты
+
 export const GET_TASKS = gql`
 	query Tasks($timemarkId: ID!) {
 		tasks(timemarkId: $timemarkId) {
+			_id
+			title
+			completed
+			timeMark {
+				_id
+			}
+		}
+	}
+`;
+
+export const GET_TASK_BY_ID = gql`
+	query TaskById($_id: ID!) {
+		taskById(_id: $_id)  {
 			_id
 			title
 			completed

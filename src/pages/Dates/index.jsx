@@ -1,11 +1,11 @@
-import React, { useCallback, memo } from 'react';
+import React, { useCallback, memo, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 // import { useQuery } from '@apollo/client';
 
 // import { getMonthTimeMarks } from '../../graphql/timeMarksQuery';
 import { YearSelect, Select, Button } from '../../components';
 
-import { TimeMarks, DatesCalendar, DatesBg } from './components';
+import { TimeMarks, DatesCalendar, DatesBg, EditTaskForm } from './components';
 
 import './Dates.sass';
 
@@ -21,6 +21,8 @@ const Dates = () => {
 	const history = useHistory();
 	let { day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() } = useParams();
 
+	const [editedTask, setEditedTask] = useState(null);
+
 	// const { loading, error, data } = useQuery(
 	// 	getMonthTimeMarks(), 
 	// 	{ variables: { month: +month, year: +year } }
@@ -28,6 +30,10 @@ const Dates = () => {
 
 	console.log(day, month, year)
 	console.log('DATES_RERENDER')
+
+	// const onEdit = useCallback((title) => {
+	// 	console.log(title)
+	// }, [])
 
 	const onDaySelect = useCallback((val) => {
 		console.log(val)
@@ -123,11 +129,12 @@ const Dates = () => {
 						day={day}
 						month={month}
 						year={year}
+
+						setEditedTask={setEditedTask}
 					/>
 
 					<div className="Tasks__bottom">
 						<Button 
-							// variant="blue"
 							text="Добавить временную метку"
 						/>
 					</div>
@@ -140,13 +147,10 @@ const Dates = () => {
 					onDaySelect={onDaySelect}
 				/>
 
-				{/* <Calendar 
-					day={+day}
-					month={+month}
-					year={+year}
-					onDaySelect={onDaySelect}
-					timeMarksCount={data.monthTimeMarks}
-				/> */}
+				{ editedTask && <EditTaskForm 
+					editedTask={editedTask}
+					setEditedTask={setEditedTask}
+				/> }
 
 			</div>
 		</main>

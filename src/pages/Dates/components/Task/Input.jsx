@@ -8,7 +8,7 @@ const Input = ({ value, onBlur }) => {
 	}
 
 	return (
-		<textarea className="Task__input" type="text" value={val} onChange={onChange} onBlur={() => onBlur(val)} ></textarea>
+		<textarea className="Task__input" autoFocus type="text" value={val} onChange={onChange} onBlur={() => onBlur(val)} ></textarea>
 	)
 }
 

@@ -6,7 +6,7 @@ import { TimeMark } from '../';
 
 import './TimeMarks.sass';
 
-const TimeMarks = ({ day, month, year }) => {
+const TimeMarks = ({ day, month, year, setEditedTask }) => {
 	const { data } = useQuery(
 		getDayTimeMarks(),
 		{ variables: { day: +day, month: +month, year: +year } }
@@ -23,6 +23,7 @@ const TimeMarks = ({ day, month, year }) => {
 							title={timeMark.title}
 							tasksCount={timeMark.tasksCount}
 							time={timeMark.time}
+							setEditedTask={setEditedTask}
 						/>
 					))
 					: <span className="Dates__message">Событий не запланировано</span>

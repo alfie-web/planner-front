@@ -11,7 +11,8 @@ const DatesBg = ({ month }) => {
 		
 			<img 
 				className="Tasks__bg"
-				src={`https://source.unsplash.com/1600x900/?nature,${ENG_MONTHS_TITLES[month]}`} 
+				// src={`https://source.unsplash.com/1600x900/?nature,${ENG_MONTHS_TITLES[month]}`} 
+				src={`https://source.unsplash.com/1600x900/?${ENG_MONTHS_TITLES[month]}`} 
 				alt="Month img"
 				onError={(e) => e.target.src = fallbackBg}
 			/>

@@ -8,7 +8,7 @@ import { addTask } from '../../../../graphql/tasksMutations';
 import { Task, NewTaskInput } from '../';
 
 
-const TimeMark = ({ _id, title, tasksCount, time }) => {
+const TimeMark = ({ _id, title, tasksCount, time, setEditedTask }) => {
 	const [tasksVisible, setTasksVisible] = useState(false);
 
 	const client = useApolloClient();
@@ -38,8 +38,13 @@ const TimeMark = ({ _id, title, tasksCount, time }) => {
 				update: (cache, { data: { addTask } }) => {
 					cache.modify({
 						fields: {
-							tasks(existingTodos = []) {
-								const newTodoRef = cache.writeFragment({
+							// 	// TODO: МОЖЕТ МОЖНО ОБОЙТИСЬ БЕЗ refetchQueries
+							// timeMarks(exsistingTimeMarks = []) {
+							// 	console.log('exsistingTimeMarks', exsistingTimeMarks)
+							// 	return [...exsistingTimeMarks]
+							// },
+							tasks(existingTasks = []) {
+								const newTaskRef = cache.writeFragment({
 									data: addTask,
 									fragment: gql`
 										fragment NewTask on Task {
@@ -52,8 +57,8 @@ const TimeMark = ({ _id, title, tasksCount, time }) => {
 										}
 									`
 								});
-								console.log('newTodoRef', newTodoRef)
-								return [...existingTodos, newTodoRef];
+								console.log('newTaskRef', newTaskRef)
+								return [...existingTasks, newTaskRef];
 							}
 						}
 					});
@@ -124,6 +129,7 @@ const TimeMark = ({ _id, title, tasksCount, time }) => {
 									title={t.title}
 									completed={t.completed}
 									timeMarkId={t.timeMark._id}
+									setEditedTask={setEditedTask}
 								/>
 							))
 							// // : <div className="Task__message">Список задач пуст</div>
