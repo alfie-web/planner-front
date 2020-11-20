@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import classNames from 'classnames';
 
-// import { useOutsideClick } from '../../hooks';
-import './Select.sass';
+import useOutsideClick from '../../helpers/useOutsideClick';
+// import './Select.sass';
 
-export default memo(function Select({ className, optionsData, onSelect = () => {}, defaultValue, name = '' }) {
+export default memo(function Select({ className, optionsData = [{title: '', value: ''}], onSelect = () => {}, defaultValue, name = '' }) {
 	const [value, setValue] = useState(optionsData[0].value || '');
 	const [isDropped, setIsDropped] = useState(false);
 	const selectRef = useRef();
@@ -15,12 +15,17 @@ export default memo(function Select({ className, optionsData, onSelect = () => {
 		if (defaultValue) setValue(defaultValue)
 	}, [defaultValue])
 	
-	// useOutsideClick(selectRef, () => setIsDropped(false), '.Select__dropdown');
+	useOutsideClick(selectRef, () => setIsDropped(false), '.Select__dropdown');
 
 	const handleSelect = (val) => {
 		setValue(val);
 		setIsDropped(false);
 		onSelect(val, name)
+	}
+
+	const getTitle = () => {
+		const title = optionsData.find(o => String(o.value) === String(value))
+		return title ? title.title : optionsData[0].title
 	}
 
 	// console.log(optionsData.find(o => o.value === value))
@@ -42,7 +47,8 @@ export default memo(function Select({ className, optionsData, onSelect = () => {
 					</svg>
 				</div> */}
 				
-					<span>{optionsData.find(o => String(o.value) === String(value)).title}</span>
+					{/* <span>{optionsData.find(o => String(o.value) === String(value)).title || ''}</span> */}
+					<span>{getTitle()}</span>
 				
 			</div>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client'; 
 
 import { Button } from '../../../../components';
-import EditTextarea from './EditTextarea';
+import EditTextarea from '../EditTextarea';
 // import Test from './Test';
 
 import { GET_TASK_BY_ID } from '../../../../graphql/tasksQueries';

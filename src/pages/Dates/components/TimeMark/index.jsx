@@ -8,7 +8,7 @@ import { addTask } from '../../../../graphql/tasksMutations';
 import { Task, NewTaskInput } from '../';
 
 
-const TimeMark = ({ _id, title, tasksCount, time, setEditedTask }) => {
+const TimeMark = ({ _id, title, tasksCount, time, setEditedTask, setEditedTimeMark }) => {
 	const [tasksVisible, setTasksVisible] = useState(false);
 
 	const client = useApolloClient();
@@ -31,10 +31,10 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask }) => {
 			// options: {
 			// TODO: Заюзать ещё refetchQueries  на получения обновлённой информации об временной метки
 			// для того, чтобы увидеть обновлённое количество задач
-			refetchQueries: [{
-				query: TIME_MARK_BY_ID,
-				variables: { _id }
-			}],
+			// refetchQueries: [{
+			// 	query: TIME_MARK_BY_ID,
+			// 	variables: { _id }
+			// }],
 				update: (cache, { data: { addTask } }) => {
 					cache.modify({
 						fields: {
@@ -110,7 +110,9 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask }) => {
 					'TimeMarks__item--active': tasksVisible
 					// 'TimeMarks__item--selected': tasksVisible
 				})} 
-				onClick={loadTasksHandler}>
+				onClick={loadTasksHandler}
+				onDoubleClick={() => console.log('dblClick')}
+			>
 				<span className="TimeMarks__item-title">
 					{title}
 					<span className="TimeMarks__item-tasksCount">({tasksCount})</span>
@@ -142,6 +144,8 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask }) => {
 					/> */}
 					<NewTaskInput 
 						newTaskHandler={newTaskHandler}
+						_id={_id}
+						setEditedTimeMark={setEditedTimeMark}
 					/>
 				</div>
 			}

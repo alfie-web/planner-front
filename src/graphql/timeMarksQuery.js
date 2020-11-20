@@ -30,6 +30,7 @@ export const TIME_MARK_BY_ID = gql`
 			_id
 			title
 			tasksCount
+			time
 		}
 	}
 `;

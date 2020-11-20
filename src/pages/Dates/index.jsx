@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 // import { getMonthTimeMarks } from '../../graphql/timeMarksQuery';
 import { YearSelect, Select, Button } from '../../components';
 
-import { TimeMarks, DatesCalendar, DatesBg, EditTaskForm } from './components';
+import { TimeMarks, DatesCalendar, DatesBg, EditTaskForm, EditTimeMarkForm } from './components';
 
 import './Dates.sass';
 
@@ -22,6 +22,7 @@ const Dates = () => {
 	let { day = today.getDate(), month = today.getMonth() + 1, year = today.getFullYear() } = useParams();
 
 	const [editedTask, setEditedTask] = useState(null);
+	const [editedTimeMark, setEditedTimeMark] = useState(null);
 
 	// const { loading, error, data } = useQuery(
 	// 	getMonthTimeMarks(), 
@@ -131,6 +132,7 @@ const Dates = () => {
 						year={year}
 
 						setEditedTask={setEditedTask}
+						setEditedTimeMark={setEditedTimeMark}
 					/>
 
 					<div className="Tasks__bottom">
@@ -150,6 +152,11 @@ const Dates = () => {
 				{ editedTask && <EditTaskForm 
 					editedTask={editedTask}
 					setEditedTask={setEditedTask}
+				/> }
+
+				{ editedTimeMark && <EditTimeMarkForm
+					editedTimeMark={editedTimeMark}
+					setEditedTimeMark={setEditedTimeMark}
 				/> }
 
 			</div>
