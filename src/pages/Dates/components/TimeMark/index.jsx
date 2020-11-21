@@ -1,6 +1,7 @@
 import React, { useState, memo } from 'react';
 import classNames from 'classnames';
 import { useLazyQuery, useMutation, useApolloClient, gql } from '@apollo/client';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { TIME_MARK_BY_ID } from '../../../../graphql/timeMarksQuery';
 import { GET_TASKS } from '../../../../graphql/tasksQueries';
@@ -31,10 +32,10 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask, setEditedTimeMa
 			// options: {
 			// TODO: Заюзать ещё refetchQueries  на получения обновлённой информации об временной метки
 			// для того, чтобы увидеть обновлённое количество задач
-			// refetchQueries: [{
-			// 	query: TIME_MARK_BY_ID,
-			// 	variables: { _id }
-			// }],
+			refetchQueries: [{
+				query: TIME_MARK_BY_ID,
+				variables: { _id }
+			}],
 				update: (cache, { data: { addTask } }) => {
 					cache.modify({
 						fields: {
@@ -123,20 +124,27 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask, setEditedTimeMa
 			{ tasksVisible && 
 				<div className="TimeMarks__item-tasks">
 					<div className="TimeMark__tasks">
+					<TransitionGroup>
 						{ data && data.tasks.length ?
 							data.tasks.map(t => (
-								<Task
+								<CSSTransition
 									key={t._id}
-									_id={t._id}
-									title={t.title}
-									completed={t.completed}
-									timeMarkId={t.timeMark._id}
-									setEditedTask={setEditedTask}
-								/>
+									timeout={500}
+									classNames="Task"
+								>
+									<Task
+										_id={t._id}
+										title={t.title}
+										completed={t.completed}
+										timeMarkId={t.timeMark._id}
+										setEditedTask={setEditedTask}
+									/>
+								</CSSTransition>
 							))
 							// // : <div className="Task__message">Список задач пуст</div>
 							: null
 						}
+						</TransitionGroup>
 					</div>
 
 					{/* <Button
