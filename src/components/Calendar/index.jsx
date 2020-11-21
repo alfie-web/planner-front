@@ -52,14 +52,27 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 	}
 
 	const getPrevMonth = (year, month) => {
-		const prev = new Date(year, month).getMonth() - 1
-		return prev
+		const date = new Date(year, month)
+		// const prev = date.getMonth() - 1;
+
+		if (date.getMonth() === 0) {
+			return {
+				year: year - 1,
+				month: 11
+			}
+		}
+
+		// console.log(prev)
+		return {
+			year,
+			month: date.getMonth() - 1
+		}
 	}
 
 	// Возвращает числа последней недели предыдущего месяца
 	const getLastWeekOfPrevMonth = (year, month, firstDayInFirstWeek) => {
-		const prevMonth = getPrevMonth(year, month);
-		const daysCount = getDaysOfMonthNumber(year, prevMonth)
+		const prev = getPrevMonth(year, month);
+		const daysCount = getDaysOfMonthNumber(prev.year, prev.month)
 
 		let fullWeek = new Array(7).fill(0).map((_, i) => daysCount - i)
 		fullWeek.splice(firstDayInFirstWeek, 7)
@@ -93,7 +106,7 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 
 			for(let j = 0; j < DAYS_IN_WEEK.current; j++) {
 				if ((i === 0 && j < firstDayInFirstWeek) || day > daysOfMonth) {
-					console.log(day)
+					// console.log(day)
 					// rows[i][j] = null;
 
 					// rows[i][j] = i === 0 && lastWeekPrevMonth[j]
