@@ -51,6 +51,23 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 		return day - 1;
 	}
 
+	const getPrevMonth = (year, month) => {
+		const prev = new Date(year, month).getMonth() - 1
+		return prev
+	}
+
+	// Возвращает числа последней недели предыдущего месяца
+	const getLastWeekOfPrevMonth = (year, month, firstDayInFirstWeek) => {
+		const prevMonth = getPrevMonth(year, month);
+		const daysCount = getDaysOfMonthNumber(year, prevMonth)
+
+		let fullWeek = new Array(7).fill(0).map((_, i) => daysCount - i)
+		fullWeek.splice(firstDayInFirstWeek, 7)
+
+
+		return fullWeek.reverse()
+	}
+
 	const isToday = (day, month, year) => {
 		const curDate = new Date()
 
@@ -61,15 +78,33 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 		const daysOfMonth = getDaysOfMonthNumber(selectedDate.year, selectedDate.month);
 		const firstDayInFirstWeek = getFirstDayOfMonth(selectedDate.year, selectedDate.month); // а можно просто переназначить все числа в getFirstDayOfMonth
 
+		const lastWeekPrevMonth = getLastWeekOfPrevMonth(selectedDate.year, selectedDate.month, firstDayInFirstWeek)
+		// console.log([
+		// 	...lastWeekPrevMonth,
+		// 	1, 2, 3, 4, 5, 6, 7
+		// ])
+
 		let rows = [];
 		let day = 1;
+		let firstWeekNextMonthDay = 1;
 
 		for(let i = 0; i < (daysOfMonth + firstDayInFirstWeek) / DAYS_IN_WEEK.current; i++) {
 			rows[i] = [];
 
 			for(let j = 0; j < DAYS_IN_WEEK.current; j++) {
 				if ((i === 0 && j < firstDayInFirstWeek) || day > daysOfMonth) {
-					rows[i][j] = null;
+					console.log(day)
+					// rows[i][j] = null;
+
+					// rows[i][j] = i === 0 && lastWeekPrevMonth[j]
+					if (i === 0) {
+						rows[i][j] = lastWeekPrevMonth[j]
+					} else {
+						rows[i][j] = firstWeekNextMonthDay;
+						firstWeekNextMonthDay++;
+					}
+
+					// TODO: А нижнюю часть делать вообще не тут (брать день недели последнего дня месяца и от него плясать)
 				} else {
 					rows[i][j] = {
 						year: selectedDate.year,
@@ -142,7 +177,8 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 								getMonthInfo().map((row, i) => (
 									<tr key={i}>
 										{
-											row.map((date, j) => date ? (
+											// row.map((date, j) => date ? (
+											row.map((date, j) => date && date.day ? (
 												<td 
 													key={j} 
 													data-day={date.day} 
@@ -158,7 +194,8 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 													{ timeMarksCount && showTimemarksCount(date.day) }
 												</td>
 											)
-											: <td key={j}></td>)
+											// : <td key={j}></td>)
+											: <td key={j} className="disabled">{date}</td>)
 										}
 									</tr>
 								))
