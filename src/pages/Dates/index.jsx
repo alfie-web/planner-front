@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 // import { getMonthTimeMarks } from '../../graphql/timeMarksQuery';
 import { YearSelect, Select, Button } from '../../components';
 
-import { TimeMarks, DatesCalendar, DatesBg, EditTaskForm, EditTimeMarkForm } from './components';
+import { TimeMarks, DatesCalendar, DatesBg, EditTaskForm, EditTimeMarkForm, AddTimeMarkForm } from './components';
 
 import './Dates.sass';
 
@@ -23,6 +23,7 @@ const Dates = () => {
 
 	const [editedTask, setEditedTask] = useState(null);
 	const [editedTimeMark, setEditedTimeMark] = useState(null);
+	const [addTimeMarkVisible, setAddTimeMarkVisible] = useState(false);
 
 	// const { loading, error, data } = useQuery(
 	// 	getMonthTimeMarks(), 
@@ -138,6 +139,7 @@ const Dates = () => {
 					<div className="Tasks__bottom">
 						<Button 
 							text="Добавить временную метку"
+							onClick={() => setAddTimeMarkVisible(!addTimeMarkVisible)}
 						/>
 					</div>
 				</aside>
@@ -157,6 +159,13 @@ const Dates = () => {
 				{ editedTimeMark && <EditTimeMarkForm
 					editedTimeMark={editedTimeMark}
 					setEditedTimeMark={setEditedTimeMark}
+				/> }
+
+				{ addTimeMarkVisible && <AddTimeMarkForm 
+					setAddTimeMarkVisible={setAddTimeMarkVisible}
+					day={+day}
+					month={+month}
+					year={+year}
 				/> }
 
 			</div>

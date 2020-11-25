@@ -34,8 +34,6 @@ const EditTaskForm = ({ editedTask, setEditedTask }) => {
 			<form className="Form">
 			{ data && <EditTextarea 
 				title={val} 
-				// title={data.taskById.title} 
-				// onChange={() => {}} 
 				setVal={setVal}
 			/> }
 

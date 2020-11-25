@@ -33,13 +33,14 @@ const NewTaskInput = ({ _id, newTaskHandler, setEditedTimeMark }) => {
 					/>
 				</div>
 				: <input 
+					className="TimeMark__input"
 					type="text" 
 					value={newTaskText} 
 					placeholder="Введите текст"
 					autoFocus
 					onChange={e => setNewTaskText(e.target.value)} 
 					onBlur={newTask} 
-				 />
+				/> 
 			}
 		</>
 	)

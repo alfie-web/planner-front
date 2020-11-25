@@ -1,3 +1,4 @@
+@import '../../../../layouts/vars'
 
 .TimeMarks
 	position: relative
@@ -55,13 +56,32 @@
 
 
 
+.TimeMark
+	&__tasks
+		width: 100%
 
-.TimeMark__tasks
-	width: 100%
+	&__bottom
+		display: flex
+		.Button--icon
+			min-width: 48px !important
+			width: 48px !important
+			margin-left: 20px
 
-.TimeMark__bottom
-	display: flex
-	.Button--icon
-		min-width: 48px !important
-		width: 48px !important
-		margin-left: 20px
+	&__input
+		width: 100%
+		padding: 8px 30px
+		box-sizing: border-box
+		border: none
+		outline: none
+		font: 18px/30px $bold
+		border-radius: 6px
+		background-color: transparent
+		color: white
+		border: 1px solid rgba(255, 255, 255, .1)
+		transition: border-color .2s
+
+		&::placeholder
+			color: white !important
+
+		&:hover, &:focus
+			border-color: rgba(255, 255, 255, .3)

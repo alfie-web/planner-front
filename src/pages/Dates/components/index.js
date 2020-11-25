@@ -4,5 +4,6 @@ export { default as Task } from './Task';
 export { default as NewTaskInput } from './NewTaskInput';
 export { default as EditTaskForm } from './EditTaskForm';
 export { default as EditTimeMarkForm } from './EditTimeMarkForm';
+export { default as AddTimeMarkForm } from './AddTimeMarkForm';
 export { default as DatesCalendar } from './DatesCalendar';
 export { default as DatesBg } from './DatesBg';

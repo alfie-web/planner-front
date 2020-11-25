@@ -30,6 +30,14 @@
 		border-collapse: collapse !important
 		border: none
 
+		tr:first-child
+			td
+				// background-color: #ccc
+				border-top: none 
+
+		th
+			border-bottom: none !important
+
 		th, td
 			padding: 30px
 			box-sizing: border-box
@@ -70,4 +78,4 @@
 
 			&.disabled
 				color: $light
-				font-size: 36px
+				font: 36px/30px $bold
