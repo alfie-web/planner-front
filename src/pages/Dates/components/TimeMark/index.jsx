@@ -12,7 +12,6 @@ import { Task, NewTaskInput } from '../';
 const TimeMark = ({ _id, title, tasksCount, time, setEditedTask, setEditedTimeMark }) => {
 	const [tasksVisible, setTasksVisible] = useState(false);
 
-	const client = useApolloClient();
 	const [newTask] = useMutation(addTask);
 
 	const [loadTasks, { loading, data }] = useLazyQuery(
@@ -112,7 +111,6 @@ const TimeMark = ({ _id, title, tasksCount, time, setEditedTask, setEditedTimeMa
 					// 'TimeMarks__item--selected': tasksVisible
 				})} 
 				onClick={loadTasksHandler}
-				onDoubleClick={() => console.log('dblClick')}
 			>
 				<span className="TimeMarks__item-title">
 					{title}

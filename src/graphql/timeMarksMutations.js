@@ -23,3 +23,12 @@ export const UPDATE_TIME_MARK =  gql`
 		}
 	}
 `;
+
+export const DELETE_TIME_MARK =  gql`
+	mutation DeleteTimeMark($timeMarkId: ID!) {
+		deleteTimeMark(timeMarkId: $timeMarkId) {
+			_id
+			day
+		}
+	}
+`;

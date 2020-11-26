@@ -30,3 +30,12 @@ export const addTask =  gql`
 		}
 	}
 `;
+
+export const DELETE_TASK =  gql`
+	mutation DeleteTask($taskId: ID!, $timeMarkId: ID!) {
+		deleteTask(taskId: $taskId, timeMarkId: $timeMarkId) {
+			_id
+		}
+	}
+`;
+

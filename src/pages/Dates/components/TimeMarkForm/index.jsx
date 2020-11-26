@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, TimePicker } from '../../../../components';
 import EditTextarea from '../EditTextarea';
 
-const TimeMarkForm = ({ title, time, onClick }) => {
+const TimeMarkForm = ({ _id, title, time, onClick, deleteTM }) => {
 	const [timeMarkData, setTimeMarkData] = useState({
 		title: '',
 		time: '',
@@ -50,6 +50,12 @@ const TimeMarkForm = ({ title, time, onClick }) => {
 					onClick={() => onClickHandler(timeMarkData)}
 					title="Редактировать"
 				/>
+				{ _id && <Button 
+					text="Удалить"
+					variant="gray"
+					onClick={deleteTM}
+					title="Удалить"
+				/> }
 			</div>
 		</form>
 	)

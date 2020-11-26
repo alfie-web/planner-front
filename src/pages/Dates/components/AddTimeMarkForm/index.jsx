@@ -6,6 +6,7 @@ import TimeMarkForm from '../TimeMarkForm';
 
 const AddTimeMarkForm = ({ setAddTimeMarkVisible, day, month, year }) => {
 	const [newTimeMarkHandler] = useMutation(NEW_TIME_MARK);
+	
 
 	const add = ({ time, title }) => {
 		time && title && newTimeMarkHandler({
@@ -55,6 +56,8 @@ const AddTimeMarkForm = ({ setAddTimeMarkVisible, day, month, year }) => {
 			// })
 		console.log({ day, month, year, time, title })
 	}
+
+	
 
 	return (
 		<div className="EditForm TimeMarks__editForm">

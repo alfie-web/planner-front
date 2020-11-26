@@ -199,7 +199,7 @@ const Calendar = ({ day, month, year, onDaySelect, timeMarksCount }) => {
 													data-year={date.year}
 													className={classNames('day', {
 														'today': isToday(date.day, date.month, date.year),
-														'selected': date.day === day
+														'selected disabled': date.day === day
 													})}
 												>
 													<span className="dayNumber">{date.day}</span>

@@ -14,6 +14,13 @@ import './Dates.sass';
 // const bgImg = 'https://source.unsplash.com/1600x900/?nature';
 
 
+// TODO:
+	// Сделать так, чтобы при переходе по календарю на другой месяц проверялось, есть ли такой день 
+	// Так как в феврале например нету 30
+	// Удаление тасков и меток
+	// Прелоадер
+	// Анимацию
+
 
 const today = new Date();
 
@@ -44,13 +51,15 @@ const Dates = () => {
 
 	const onMonthSelect = useCallback((val) => {
 		console.log(val)
-		history.push(`/${day}/${val}/${year}`)
-	}, [day, year, history])
+		history.push(`/1/${val}/${year}`)
+		// history.push(`/${day}/${val}/${year}`)
+	}, [year, history])
+	// }, [day, year, history])
 
 	const onYearSelect = useCallback((val) => {
 		console.log(val)
-		history.push(`/${day}/${month}/${val}`)
-	}, [day, month, history])
+		history.push(`/1/${month}/${val}`)
+	}, [month, history])
 
 	const setPrevNextMonth = (way) => {
 		year = +year
@@ -66,7 +75,7 @@ const Dates = () => {
 			month += way
 		}
 
-		history.push(`/${day}/${month}/${year}`)
+		history.push(`/1/${month}/${year}`)
 	}
 
 	// if (loading) return <p>Loading...</p>;

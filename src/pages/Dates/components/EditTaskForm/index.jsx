@@ -6,7 +6,7 @@ import EditTextarea from '../EditTextarea';
 // import Test from './Test';
 
 import { GET_TASK_BY_ID } from '../../../../graphql/tasksQueries';
-import { updateTask } from '../../../../graphql/tasksMutations';
+import { updateTask, DELETE_TASK } from '../../../../graphql/tasksMutations';
 
 import './EditForm.sass';
 
@@ -19,11 +19,14 @@ const EditTaskForm = ({ editedTask, setEditedTask }) => {
 	})
 
 	const [updateHandler] = useMutation(updateTask);
+	const [deleteHandler] = useMutation(DELETE_TASK);
 
 	const update = () => {
 		updateHandler({ variables: { taskId: editedTask, title: val } })
 			.then(_ => setEditedTask(null))
 	}
+
+	// const delete = () => {}
 
 	console.log('GET_TASK_BY_ID', data)
 
@@ -44,6 +47,26 @@ const EditTaskForm = ({ editedTask, setEditedTask }) => {
 						text="Сохранить"
 						variant="blue"
 						onClick={update}
+					/>
+					<Button 
+						text="Удалить"
+						variant="gray"
+						onClick={() => deleteHandler({
+							variables: { taskId: data.taskById._id, timeMarkId: data.taskById.timeMark._id },
+							update: (cache, { data: { deleteTask } }) => {
+								console.log('deleteTask', deleteTask)
+								cache.modify({
+									fields: {
+										// TODO: Менять tasksCount
+										tasks(existingTasks = [], { readField }) {
+											console.log(existingTasks)
+											return existingTasks.filter(t => readField('_id', t) !== deleteTask._id)
+										}
+									}
+								}) 
+							},
+							
+						}).then(_ => setEditedTask(null))}
 					/>
 				</div>
 			</form>
